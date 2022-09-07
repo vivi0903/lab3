@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##1. Read in the data
+## 1. Read in the data
 First download and then read in with data.table:fread()
 
 ```{r}
@@ -25,13 +25,13 @@ dim(met)
 head(met)
 tail(met)
 ```
-##3. Take a look at the variables.
+## 3. Take a look at the variables.
 
 ```{r}
 str(met)
 ```
 
-##4. Take a closer look at the key variables.
+## 4. Take a closer look at the key variables.
 
 ```{r}
 table(met$year)
@@ -46,4 +46,7 @@ summary(met$wind.sp)
 met[met$elev==9999.0] <- NA
 summary(met$elev)
 ```
+
+
+The weather station with highest elevation is at `r max(met$elev,na.rm=TRUE)` meters.
 
