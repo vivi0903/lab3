@@ -9,22 +9,41 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+##1. Read in the data
+First download and then read in with data.table:fread()
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
+download.file("https://raw.githubusercontent.com/USCbiostats/data-science-data/master/02_met/met_all.gz", "met_all.gz", method="libcurl", timeout = 60)
+met <- data.table::fread("met_all.gz")
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
+## 2. Check the dimensions, headers, footers. How many columns, rows are there?
 
-You can also embed plots, for example:
+```{r}
+dim(met)
+head(met)
+tail(met)
+```
+##3. Take a look at the variables.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+str(met)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##4. Take a closer look at the key variables.
+
+```{r}
+table(met$year)
+table(met$day)
+table(met$hour)
+summary(met$temp)
+summary(met$elev)
+summary(met$wind.sp)
+```
+
+```{r}
+met[met$elev==9999.0] <- NA
+summary(met$elev)
+```
+
